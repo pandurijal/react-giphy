@@ -104,6 +104,14 @@
   cursor: pointer;
 }
 
+.zero-data {
+  width: 100%;
+}
+
+.zero-data p {
+  text-align: center;
+}
+
 .grid-item__skeleton {
   background-color: var(--color-gray);
   height: 250px;

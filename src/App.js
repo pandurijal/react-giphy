@@ -9,10 +9,12 @@ class App extends Component {
     this.state = {
       searchImg: '',
       dataImg: {
-        data: []
+        data: [],
+        meta: {}
       },
       favImg: [],
-      isLoading: false
+      isLoading: false,
+      isLoaded: false
     };
   }
 
@@ -35,7 +37,8 @@ class App extends Component {
       e.preventDefault();
       this.setState({
         dataImg: {
-          data: []
+          data: [],
+          meta: {}
         }
       });
       this.fetchImg();
@@ -67,12 +70,12 @@ class App extends Component {
     } catch (error) {
       console.error(error);
     }
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false, isLoaded: true });
   };
 
   render() {
-    const { searchImg, dataImg, favImg, isLoading } = this.state;
-    console.log({ dataImg, favImg });
+    const { searchImg, dataImg, favImg, isLoading, isLoaded } = this.state;
+    console.log({ dataImg, favImg, isLoaded });
     return (
       <div className="App">
         <div className="container">
@@ -89,27 +92,39 @@ class App extends Component {
             />
           </form>
           <div className="grid-row">
-            {dataImg.data.map(val => {
-              const srcImg = val.images.original.url;
-              const favorited =
-                favImg.findIndex(fav => fav.id === val.id) !== -1
-                  ? true
-                  : false;
-              console.log({ favorited });
-              return (
-                <div className="grid-item" key={val.id}>
-                  <img src={srcImg} alt="img" />
-                  <div
-                    className="fav-btn__wrapper"
-                    onClick={() => this.onFavClicked(val.id, srcImg)}
-                  >
-                    <div
-                      className={`fav-btn ${favorited ? 'favorited' : ''}`}
-                    />
+            {dataImg.meta.status === 200 && (
+              <>
+                {dataImg.data.length > 0 ? (
+                  dataImg.data.map(val => {
+                    const srcImg = val.images.original.url;
+                    const favorited =
+                      favImg.findIndex(fav => fav.id === val.id) !== -1
+                        ? true
+                        : false;
+                    console.log({ favorited });
+                    return (
+                      <div className="grid-item" key={val.id}>
+                        <img src={srcImg} alt="img" />
+                        <div
+                          className="fav-btn__wrapper"
+                          onClick={() => this.onFavClicked(val.id, srcImg)}
+                        >
+                          <div
+                            className={`fav-btn ${
+                              favorited ? 'favorited' : ''
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="zero-data">
+                    <p>Sorry, we couldn't find images with that keyword</p>
                   </div>
-                </div>
-              );
-            })}
+                )}
+              </>
+            )}
             {isLoading && (
               <>
                 <div className="grid-item__skeleton" />
