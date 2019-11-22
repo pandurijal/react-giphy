@@ -1,8 +1,9 @@
 :root {
   --color-white: #ffffff;
+  --color-black: #2c3e50;
   --color-gray: #dfe6e9;
   --color-silver: #95a5a6;
-  --color-black: #2c3e50;
+  --color-red: #eb4d4b;
 }
 
 * {
@@ -53,6 +54,46 @@
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 8px;
+}
+
+.grid-item:hover .fav-btn {
+  opacity: 0.5;
+  transition-duration: 0.5s;
+}
+
+.fav-btn__wrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.fav-btn {
+  opacity: 0;
+  position: relative;
+  top: 0;
+  background-color: var(--color-red);
+  height: 20px;
+  width: 20px;
+  transform: rotate(-45deg);
+}
+
+.fav-btn::before,
+.fav-btn::after {
+  position: absolute;
+  border-radius: 100%;
+  content: '';
+  background-color: var(--color-red);
+  height: 20px;
+  width: 20px;
+}
+
+.fav-btn::before {
+  left: 0;
+  top: -10px;
+}
+
+.fav-btn:hover {
+  cursor: pointer;
 }
 
 .grid-item__skeleton {

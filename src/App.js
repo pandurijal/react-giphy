@@ -74,6 +74,9 @@ class App extends Component {
               return (
                 <div className="grid-item" key={val.id}>
                   <img src={srcImg} alt="img" />
+                  <div className="fav-btn__wrapper">
+                    <div className="fav-btn" />
+                  </div>
                 </div>
               );
             })}
