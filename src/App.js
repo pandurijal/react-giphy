@@ -16,9 +16,9 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchImg !== this.state.searchImg) {
-      this.fetchImg();
-    }
+    // if (prevState.searchImg !== this.state.searchImg) {
+    //   this.fetchImg();
+    // }
   }
 
   onSearchChanged = e => {
@@ -26,6 +26,14 @@ class App extends Component {
     this.setState({
       [name]: value
     });
+  };
+
+  onKeyPressed = e => {
+    const { key } = e;
+    if (key === 'Enter') {
+      e.preventDefault();
+      this.fetchImg();
+    }
   };
 
   fetchImg = async () => {
@@ -57,6 +65,7 @@ class App extends Component {
               autoFocus
               value={searchImg}
               onChange={this.onSearchChanged}
+              onKeyPress={this.onKeyPressed}
             />
           </form>
           <div className="grid-row">
