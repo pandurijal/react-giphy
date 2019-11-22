@@ -10,7 +10,8 @@ class App extends Component {
       searchImg: '',
       dataImg: {
         data: []
-      }
+      },
+      isLoading: false
     };
   }
 
@@ -28,15 +29,21 @@ class App extends Component {
   };
 
   fetchImg = async () => {
-    const { searchImg } = this.state;
-    const res = await searchImgService(searchImg);
-    this.setState({
-      dataImg: res
-    });
+    this.setState({ isLoading: true });
+    try {
+      const { searchImg } = this.state;
+      const res = await searchImgService(searchImg);
+      this.setState({
+        dataImg: res
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    this.setState({ isLoading: false });
   };
 
   render() {
-    const { searchImg, dataImg } = this.state;
+    const { searchImg, dataImg, isLoading } = this.state;
     console.log({ dataImg });
     return (
       <div className="App">
@@ -53,14 +60,26 @@ class App extends Component {
             />
           </form>
           <div className="grid-row">
-            {dataImg.data.map(val => (
-              <div className="grid-item">
-                <img
-                  src="https://2359media.com/static/media/our-first-app.1c622491.jpg"
-                  alt="img"
-                />
-              </div>
-            ))}
+            {dataImg.data.map(val => {
+              const srcImg = val.images.original.url;
+              return (
+                <div className="grid-item" key={val.id}>
+                  <img src={srcImg} alt="img" />
+                </div>
+              );
+            })}
+            {isLoading && (
+              <>
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+                <div className="grid-item__skeleton" />
+              </>
+            )}
           </div>
         </div>
       </div>

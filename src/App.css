@@ -1,5 +1,6 @@
 :root {
-  --color-gray: #95a5a6;
+  --color-gray: #ecf0f1;
+  --color-silver: #95a5a6;
   --color-black: #2c3e50;
 }
 
@@ -27,7 +28,7 @@
   padding: 10px 6px;
   font-size: 18px;
   border: none;
-  border-bottom: solid 1px var(--color-gray);
+  border-bottom: solid 1px var(--color-silver);
 }
 
 .component-searchbar:focus {
@@ -52,12 +53,54 @@
   overflow: hidden;
 }
 
+.grid-item__skeleton {
+  background-color: var(--color-silver);
+  height: 250px;
+  position: relative;
+  flex-basis: 25%;
+  -ms-flex: auto;
+  width: 259px;
+  padding: 10px;
+  border: solid 5px #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.grid-item__skeleton::after {
+  opacity: 0.2;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--color-silver),
+    var(--color-gray),
+    var(--color-silver)
+  );
+  animation: loading 1.5s ease-in-out infinite;
+}
+
 img {
   width: 100%;
 }
 
+@keyframes loading {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
 @media (max-width: 1120px) {
   .grid-item {
+    flex-basis: 25%;
+  }
+  .grid-item__skeleton {
     flex-basis: 25%;
   }
 }
@@ -66,16 +109,25 @@ img {
   .grid-item {
     flex-basis: 50%;
   }
+  .grid-item__skeleton {
+    flex-basis: 50%;
+  }
 }
 
 @media (max-width: 720px) {
   .grid-item {
     flex-basis: 100%;
   }
+  .grid-item__skeleton {
+    flex-basis: 50%;
+  }
 }
 
 @media (max-width: 480px) {
   .grid-item {
-    flex-basis: 100%%;
+    flex-basis: 100%;
+  }
+  .grid-item__skeleton {
+    flex-basis: 100%;
   }
 }
