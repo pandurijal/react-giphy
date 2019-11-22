@@ -61,6 +61,10 @@
   transition-duration: 0.5s;
 }
 
+.grid-item:hover .fav-btn.fav-btn.favorited {
+  opacity: 1;
+}
+
 .fav-btn__wrapper {
   position: absolute;
   bottom: 10px;
@@ -75,6 +79,10 @@
   height: 20px;
   width: 20px;
   transform: rotate(-45deg);
+}
+
+.fav-btn.favorited {
+  opacity: 1;
 }
 
 .fav-btn::before,

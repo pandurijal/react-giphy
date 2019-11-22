@@ -11,6 +11,7 @@ class App extends Component {
       dataImg: {
         data: []
       },
+      favImg: [],
       isLoading: false
     };
   }
@@ -32,8 +33,27 @@ class App extends Component {
     const { key } = e;
     if (key === 'Enter') {
       e.preventDefault();
+      this.setState({
+        dataImg: {
+          data: []
+        }
+      });
       this.fetchImg();
     }
+  };
+
+  onFavClicked = (id, srcImg) => {
+    let { favImg } = this.state;
+    const favIndex = favImg.findIndex(val => val.id === id);
+    if (favIndex !== -1) {
+      favImg = favImg.filter(val => val.id !== id);
+    } else {
+      favImg.push({ id, srcImg });
+    }
+    this.setState({
+      favImg
+    });
+    console.log({ val: JSON.stringify(id, srcImg) });
   };
 
   fetchImg = async () => {
@@ -51,8 +71,8 @@ class App extends Component {
   };
 
   render() {
-    const { searchImg, dataImg, isLoading } = this.state;
-    console.log({ dataImg });
+    const { searchImg, dataImg, favImg, isLoading } = this.state;
+    console.log({ dataImg, favImg });
     return (
       <div className="App">
         <div className="container">
@@ -71,11 +91,21 @@ class App extends Component {
           <div className="grid-row">
             {dataImg.data.map(val => {
               const srcImg = val.images.original.url;
+              const favorited =
+                favImg.findIndex(fav => fav.id === val.id) !== -1
+                  ? true
+                  : false;
+              console.log({ favorited });
               return (
                 <div className="grid-item" key={val.id}>
                   <img src={srcImg} alt="img" />
-                  <div className="fav-btn__wrapper">
-                    <div className="fav-btn" />
+                  <div
+                    className="fav-btn__wrapper"
+                    onClick={() => this.onFavClicked(val.id, srcImg)}
+                  >
+                    <div
+                      className={`fav-btn ${favorited ? 'favorited' : ''}`}
+                    />
                   </div>
                 </div>
               );
