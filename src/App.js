@@ -7,18 +7,44 @@ import { searchImgService } from './Service';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      search: ''
+    };
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.search !== this.state.search) {
+      this.fetchImg();
+    }
+  }
+
+  onSearchChanged = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  fetchImg = () => {
+    const { search } = this.state;
+    const res = searchImgService(search);
+    console.log({ res });
+  };
+
   render() {
+    const { search } = this.state;
     return (
       <div className="App">
         <div className="container">
           <form className="component-form">
             <input
+              name="search"
               type="text"
               className="component-searchbar"
               placeholder="Start searching for images!"
               autoFocus
+              value={search}
+              onChange={this.onSearchChanged}
             />
           </form>
           <div className="grid-row">
