@@ -41,6 +41,7 @@ class Search extends Component {
   };
 
   onLoadMoreClicked = () => {
+    console.log('click');
     const { searchImg, searchParams } = this.state;
     searchParams.offset = searchParams.offset + 8;
     this.fetchImg(searchImg, searchParams.limit, searchParams.offset);
@@ -51,7 +52,6 @@ class Search extends Component {
 
   fetchImg = async (query, limit, offset) => {
     this.setState({ isLoading: true });
-    console.log({ query, limit, offset });
     const { dataImg } = this.state;
     try {
       const res = await searchImgService(query, limit, offset);
@@ -68,7 +68,6 @@ class Search extends Component {
   render() {
     const { searchImg, dataImg, isLoading, isLoaded } = this.state;
     const { favImg } = this.props;
-    console.log({ favImg });
     return (
       <div>
         <form className="component-form">
@@ -122,10 +121,7 @@ class Search extends Component {
           )}
           <div className="btn-more__wrapper">
             {isLoaded && dataImg.length >= 8 && !isLoading && (
-              <button
-                className="btn-more"
-                onClick={() => this.onLoadMoreClicked}
-              >
+              <button className="btn-more" onClick={this.onLoadMoreClicked}>
                 Load more images!
               </button>
             )}

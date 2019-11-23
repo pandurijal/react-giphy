@@ -49,6 +49,11 @@ body {
   font-size: 24px;
 }
 
+.app-title:hover,
+.app-menu:hover {
+  cursor: pointer;
+}
+
 .app-title {
   border-right: solid 1px var(--color-black);
   padding-right: 15px;
