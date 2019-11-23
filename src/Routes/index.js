@@ -8,8 +8,13 @@ export const routes = [
     exact: true
   },
   {
+    path: '/search',
+    component: MainPage,
+    exact: true
+  },
+  {
     path: '/fav',
-    component: FavPage,
+    component: MainPage,
     exact: true
   }
 ];

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import SearchPage from './SearchPage';
 import FavPage from './FavPage';
 
@@ -32,16 +31,28 @@ class App extends Component {
         <nav className="app-navbar">
           <div className="container">
             <div className="app-title__wrapper">
-              <p className="app-title">GallerEasy</p>
+              <Link to="/">
+                <p className="app-title">GallerEasy</p>
+              </Link>
             </div>
             <div className="app-menu__wrapper">
-              <p className="app-menu">Search</p>
-              <p className="app-menu">Favourites ({favImg.length})</p>
+              <Link to="/search">
+                <p className="app-menu active">Search</p>
+              </Link>
+              <Link to="/fav">
+                <p className="app-menu">Favourites ({favImg.length})</p>
+              </Link>
             </div>
           </div>
         </nav>
         <div className="container">
-          <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
+          {this.props.location.pathname === '/search' ||
+            (this.props.location.pathname === '/' && (
+              <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
+            ))}
+          {this.props.location.pathname === '/fav' && (
+            <FavPage favImg={favImg} onFavClicked={this.onFavClicked} />
+          )}
         </div>
         <footer className="app-footer">
           <p>GallerEasy | 2359 Media</p>

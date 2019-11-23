@@ -63,6 +63,11 @@ body {
 .app-menu {
   float: left;
   margin-right: 15px;
+  opacity: 0.25;
+}
+
+.app-menu.active {
+  opacity: 1;
 }
 
 .container {
