@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Loading, SearchBar } from '../Components';
+import { Loading, SearchBar, Button } from '../Components';
 import { searchImgService } from '../Service';
 
 class Search extends Component {
@@ -122,9 +122,9 @@ class Search extends Component {
           )}
           <div className="btn-more__wrapper">
             {isLoaded && dataImg.length >= 8 && !isLoading && (
-              <button className="btn-more" onClick={this.onLoadMoreClicked}>
+              <Button onClick={this.onLoadMoreClicked}>
                 Load more images!
-              </button>
+              </Button>
             )}
           </div>
           {isLoading && <Loading />}

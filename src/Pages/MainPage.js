@@ -38,12 +38,8 @@ class App extends Component {
               </Link>
             </div>
             <div className="app-menu__wrapper">
-              <Link to="/search">
-                <p
-                  className={`app-menu ${
-                    pathname === '/search' || pathname === '/' ? 'active' : ''
-                  }`}
-                >
+              <Link to="/">
+                <p className={`app-menu ${pathname === '/' ? 'active' : ''}`}>
                   Search
                 </p>
               </Link>
@@ -51,14 +47,14 @@ class App extends Component {
                 <p
                   className={`app-menu ${pathname === '/fav' ? 'active' : ''}`}
                 >
-                  Favourites ({favImg.length})
+                  Favourites {`${favImg.length ? favImg.length : ''}`}
                 </p>
               </Link>
             </div>
           </div>
         </nav>
         <div className="container">
-          {(pathname === '/search' || pathname === '/') && (
+          {pathname === '/' && (
             <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
           )}
           {pathname === '/fav' && (

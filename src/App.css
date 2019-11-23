@@ -195,17 +195,17 @@ body {
   border-radius: 4px;
   font-size: 16px;
   padding: 15px 45px;
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-white);
+  color: var(--color-black);
   border: none;
+  border: solid 2px var(--color-black);
 }
 
 .btn-more:hover {
   cursor: pointer;
-  background-color: var(--color-white);
-  color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
   transition-duration: 0.5s;
-  border: solid 2px var(--color-black);
 }
 
 .grid-item__skeleton {
