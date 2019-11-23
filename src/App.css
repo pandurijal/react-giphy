@@ -274,6 +274,9 @@ img {
 }
 
 @media (max-width: 860px) {
+  .app-navbar {
+    display: flex;
+  }
   .grid-item {
     flex-basis: 50%;
   }
@@ -283,8 +286,14 @@ img {
 }
 
 @media (max-width: 720px) {
+  .container {
+    margin: 0 30px;
+  }
   .grid-item {
     flex-basis: 100%;
+  }
+  .grid-content {
+    height: auto;
   }
   .grid-item__skeleton {
     flex-basis: 50%;
@@ -294,6 +303,9 @@ img {
 @media (max-width: 480px) {
   .grid-item {
     flex-basis: 100%;
+  }
+  .grid-content {
+    height: auto;
   }
   .grid-item__skeleton {
     flex-basis: 100%;
