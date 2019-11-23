@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar } from '../Components';
+
 import SearchPage from './SearchPage';
 import FavPage from './FavPage';
 
@@ -30,29 +32,18 @@ class App extends Component {
 
     return (
       <div className="App">
-        <nav className="app-navbar">
-          <div className="container">
-            <div className="app-title__wrapper">
-              <Link to="/">
-                <p className="app-title">GallerEasy</p>
-              </Link>
-            </div>
-            <div className="app-menu__wrapper">
-              <Link to="/">
-                <p className={`app-menu ${pathname === '/' ? 'active' : ''}`}>
-                  Search
-                </p>
-              </Link>
-              <Link to="/fav">
-                <p
-                  className={`app-menu ${pathname === '/fav' ? 'active' : ''}`}
-                >
-                  Favourites {`${favImg.length ? favImg.length : ''}`}
-                </p>
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <Navbar title="GallerEasy">
+          <Link to="/">
+            <p className={`app-menu ${pathname === '/' ? 'active' : ''}`}>
+              Search
+            </p>
+          </Link>
+          <Link to="/fav">
+            <p className={`app-menu ${pathname === '/fav' ? 'active' : ''}`}>
+              Favourites {`${favImg.length ? favImg.length : ''}`}
+            </p>
+          </Link>
+        </Navbar>
         <div className="container">
           {pathname === '/' && (
             <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
