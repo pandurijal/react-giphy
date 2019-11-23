@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   onFavClicked = (id, srcImg) => {
-    let { favImg } = this.state;
+    let favImg = JSON.parse(localStorage.getItem('favImg'));
     const favIndex = favImg.findIndex(val => val.id === id);
     if (favIndex !== -1) {
       favImg = favImg.filter(val => val.id !== id);
@@ -24,10 +24,11 @@ class App extends Component {
     this.setState({
       favImg
     });
+    localStorage.setItem('favImg', JSON.stringify(favImg));
   };
 
   render() {
-    const { favImg } = this.state;
+    const favImg = JSON.parse(localStorage.getItem('favImg'));
     const { pathname } = this.props.location;
 
     return (

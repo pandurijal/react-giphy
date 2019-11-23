@@ -6,7 +6,6 @@ const SearchBar = props => {
   const onSearchChanged = e => {
     const { name, value } = e.target;
     setQuery(value);
-    console.log({ name, value });
     props.onSearchChanged(name, value);
   };
 

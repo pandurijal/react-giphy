@@ -6,8 +6,7 @@ class FavPage extends Component {
     this.state = {};
   }
   render() {
-    const { favImg } = this.props;
-    console.log({ favImg });
+    const favImg = JSON.parse(localStorage.getItem('favImg'));
     return (
       <div className="grid-row">
         {favImg.length > 0 ? (
