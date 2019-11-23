@@ -8,10 +8,11 @@ class App extends Component {
     super(props);
     this.state = {
       searchImg: '',
-      dataImg: {
-        data: [],
-        meta: {}
+      searchParams: {
+        limit: 8,
+        offset: 0
       },
+      dataImg: [],
       favImg: [],
       isLoading: false,
       isLoaded: false
@@ -33,15 +34,18 @@ class App extends Component {
 
   onKeyPressed = e => {
     const { key } = e;
+    let { searchImg, searchParams } = this.state;
     if (key === 'Enter') {
+      searchParams = { ...searchParams, offset: 0 };
       e.preventDefault();
-      this.setState({
-        dataImg: {
-          data: [],
-          meta: {}
-        }
-      });
-      this.fetchImg();
+      this.setState(
+        {
+          dataImg: [],
+          searchParams,
+          isLoaded: false
+        },
+        () => this.fetchImg(searchImg, searchParams.limit, searchParams.offset)
+      );
     }
   };
 
@@ -56,26 +60,36 @@ class App extends Component {
     this.setState({
       favImg
     });
-    console.log({ val: JSON.stringify(id, srcImg) });
   };
 
-  fetchImg = async () => {
+  onLoadMoreClicked = () => {
+    const { searchImg, searchParams } = this.state;
+    searchParams.offset = searchParams.offset + 8;
+    this.fetchImg(searchImg, searchParams.limit, searchParams.offset);
+    this.setState({
+      searchParams
+    });
+  };
+
+  fetchImg = async (query, limit, offset) => {
     this.setState({ isLoading: true });
+    console.log({ query, limit, offset });
+    const { dataImg } = this.state;
     try {
-      const { searchImg } = this.state;
-      const res = await searchImgService(searchImg);
+      const res = await searchImgService(query, limit, offset);
       this.setState({
-        dataImg: res
+        dataImg: [...dataImg, ...res.data]
       });
     } catch (error) {
       console.error(error);
     }
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     this.setState({ isLoading: false, isLoaded: true });
   };
 
   render() {
     const { searchImg, dataImg, favImg, isLoading, isLoaded } = this.state;
-    console.log({ dataImg, favImg, isLoaded });
+    console.log({ dataImg });
     return (
       <div className="App">
         <div className="container">
@@ -92,28 +106,29 @@ class App extends Component {
             />
           </form>
           <div className="grid-row">
-            {dataImg.meta.status === 200 && (
+            {isLoaded && (
               <>
-                {dataImg.data.length > 0 ? (
-                  dataImg.data.map(val => {
+                {dataImg.length > 0 ? (
+                  dataImg.map(val => {
                     const srcImg = val.images.original.url;
                     const favorited =
                       favImg.findIndex(fav => fav.id === val.id) !== -1
                         ? true
                         : false;
-                    console.log({ favorited });
                     return (
                       <div className="grid-item" key={val.id}>
-                        <img src={srcImg} alt="img" />
-                        <div
-                          className="fav-btn__wrapper"
-                          onClick={() => this.onFavClicked(val.id, srcImg)}
-                        >
+                        <div className="grid-content">
+                          <img src={srcImg} alt="img" />
                           <div
-                            className={`fav-btn ${
-                              favorited ? 'favorited' : ''
-                            }`}
-                          />
+                            className="fav-btn__wrapper"
+                            onClick={() => this.onFavClicked(val.id, srcImg)}
+                          >
+                            <div
+                              className={`fav-btn ${
+                                favorited ? 'favorited' : ''
+                              }`}
+                            />
+                          </div>
                         </div>
                       </div>
                     );
@@ -125,6 +140,13 @@ class App extends Component {
                 )}
               </>
             )}
+            <div className="btn-more__wrapper">
+              {isLoaded && dataImg.length >= 8 && !isLoading && (
+                <button className="btn-more" onClick={this.onLoadMoreClicked}>
+                  Load more images!
+                </button>
+              )}
+            </div>
             {isLoading && (
               <>
                 <div className="grid-item__skeleton" />

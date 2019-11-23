@@ -45,15 +45,18 @@
 }
 
 .grid-item {
-  max-height: 250px;
   position: relative;
   flex-basis: 25%;
   -ms-flex: auto;
-  width: 259px;
-  padding: 10px;
+  width: 250px;
   box-sizing: border-box;
+}
+
+.grid-content {
+  position: relative;
+  height: 250px;
   overflow: hidden;
-  border-radius: 8px;
+  margin: 10px;
 }
 
 .grid-item:hover .fav-btn {
@@ -65,10 +68,14 @@
   opacity: 1;
 }
 
+.grid-content:hover {
+  border-bottom: solid 1px var(--color-red);
+}
+
 .fav-btn__wrapper {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 15px;
+  right: 15px;
 }
 
 .fav-btn {
@@ -85,8 +92,8 @@
   opacity: 1;
 }
 
-.fav-btn::before,
-.fav-btn::after {
+.fav-btn:before,
+.fav-btn:after {
   position: absolute;
   border-radius: 100%;
   content: '';
@@ -95,7 +102,7 @@
   width: 20px;
 }
 
-.fav-btn::before {
+.fav-btn:before {
   left: 0;
   top: -10px;
 }
@@ -110,6 +117,27 @@
 
 .zero-data p {
   text-align: center;
+}
+
+.btn-more__wrapper {
+  margin: 30px auto;
+}
+
+.btn-more {
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 15px 45px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: none;
+}
+
+.btn-more:hover {
+  cursor: pointer;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  transition-duration: 0.5s;
+  border: solid 2px var(--color-black);
 }
 
 .grid-item__skeleton {
