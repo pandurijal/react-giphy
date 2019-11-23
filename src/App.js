@@ -92,6 +92,17 @@ class App extends Component {
     console.log({ dataImg });
     return (
       <div className="App">
+        <nav className="app-navbar">
+          <div className="container">
+            <div className="app-title__wrapper">
+              <p className="app-title">GallerEasy</p>
+            </div>
+            <div className="app-menu__wrapper">
+              <p className="app-menu">Search</p>
+              <p className="app-menu">Favourites</p>
+            </div>
+          </div>
+        </nav>
         <div className="container">
           <form className="component-form">
             <input
@@ -162,7 +173,7 @@ class App extends Component {
           </div>
         </div>
         <footer className="app-footer">
-          <p>Gallereasy | 2359 Media</p>
+          <p>GallerEasy | 2359 Media</p>
         </footer>
       </div>
     );
