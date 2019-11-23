@@ -6,12 +6,26 @@
   --color-red: #eb4d4b;
 }
 
-* {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 90px;
 }
 
 .App {
   text-align: center;
+  min-height: 100%;
 }
 
 .container {
@@ -173,6 +187,18 @@
 
 img {
   width: 100%;
+}
+
+.app-footer {
+  margin-top: 30px;
+  clear: both;
+  padding: 15px 0;
+  background-color: var(--color-silver);
+  color: var(--color-white);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 @keyframes loading {

@@ -161,6 +161,9 @@ class App extends Component {
             )}
           </div>
         </div>
+        <footer className="app-footer">
+          <p>Gallereasy | 2359 Media</p>
+        </footer>
       </div>
     );
   }
