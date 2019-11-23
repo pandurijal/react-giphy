@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { Loading, SearchBar } from '../Components';
 import { searchImgService } from '../Service';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchImg: '',
       searchParams: {
+        query: '',
         limit: 8,
         offset: 0
       },
@@ -16,16 +17,19 @@ class Search extends Component {
     };
   }
 
-  onSearchChanged = e => {
-    const { name, value } = e.target;
+  onSearchChanged = (name, value) => {
+    const { searchParams } = this.state;
     this.setState({
-      [name]: value
+      searchParams: {
+        ...searchParams,
+        [name]: value
+      }
     });
   };
 
   onKeyPressed = e => {
     const { key } = e;
-    let { searchImg, searchParams } = this.state;
+    let { searchParams } = this.state;
     if (key === 'Enter') {
       searchParams = { ...searchParams, offset: 0 };
       e.preventDefault();
@@ -35,16 +39,20 @@ class Search extends Component {
           searchParams,
           isLoaded: false
         },
-        () => this.fetchImg(searchImg, searchParams.limit, searchParams.offset)
+        () =>
+          this.fetchImg(
+            searchParams.query,
+            searchParams.limit,
+            searchParams.offset
+          )
       );
     }
   };
 
   onLoadMoreClicked = () => {
-    console.log('click');
-    const { searchImg, searchParams } = this.state;
+    const { searchParams } = this.state;
     searchParams.offset = searchParams.offset + 8;
-    this.fetchImg(searchImg, searchParams.limit, searchParams.offset);
+    this.fetchImg(searchParams.query, searchParams.limit, searchParams.offset);
     this.setState({
       searchParams
     });
@@ -66,22 +74,15 @@ class Search extends Component {
   };
 
   render() {
-    const { searchImg, dataImg, isLoading, isLoaded } = this.state;
-    const { favImg } = this.props;
+    const { searchParams, dataImg, isLoading, isLoaded } = this.state;
+    const { favImg, onFavClicked } = this.props;
     return (
       <div>
-        <form className="component-form">
-          <input
-            name="searchImg"
-            type="text"
-            className="component-searchbar"
-            placeholder="Start searching for images!"
-            autoFocus
-            value={searchImg}
-            onChange={this.onSearchChanged}
-            onKeyPress={this.onKeyPressed}
-          />
-        </form>
+        <SearchBar
+          query={searchParams.query}
+          onSearchChanged={this.onSearchChanged}
+          onKeyPressed={this.onKeyPressed}
+        />
         <div className="grid-row">
           {isLoaded && (
             <>
@@ -98,9 +99,7 @@ class Search extends Component {
                         <img src={srcImg} alt="img" />
                         <div
                           className="fav-btn__wrapper"
-                          onClick={() =>
-                            this.props.onFavClicked(val.id, srcImg)
-                          }
+                          onClick={() => onFavClicked(val.id, srcImg)}
                         >
                           <div
                             className={`fav-btn ${
@@ -113,8 +112,10 @@ class Search extends Component {
                   );
                 })
               ) : (
-                <div className="zero-data">
-                  <p>Sorry, we couldn't find images with that keyword</p>
+                <div className="blank-data__wrapper">
+                  <p className="blank-data">
+                    Sorry, we couldn't find images with that keyword
+                  </p>
                 </div>
               )}
             </>
@@ -126,18 +127,7 @@ class Search extends Component {
               </button>
             )}
           </div>
-          {isLoading && (
-            <>
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-              <div className="grid-item__skeleton" />
-            </>
-          )}
+          {isLoading && <Loading />}
         </div>
       </div>
     );

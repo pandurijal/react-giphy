@@ -26,6 +26,8 @@ class App extends Component {
 
   render() {
     const { favImg } = this.state;
+    const { pathname } = this.props.location;
+
     return (
       <div className="App">
         <nav className="app-navbar">
@@ -37,20 +39,29 @@ class App extends Component {
             </div>
             <div className="app-menu__wrapper">
               <Link to="/search">
-                <p className="app-menu active">Search</p>
+                <p
+                  className={`app-menu ${
+                    pathname === '/search' || pathname === '/' ? 'active' : ''
+                  }`}
+                >
+                  Search
+                </p>
               </Link>
               <Link to="/fav">
-                <p className="app-menu">Favourites ({favImg.length})</p>
+                <p
+                  className={`app-menu ${pathname === '/fav' ? 'active' : ''}`}
+                >
+                  Favourites ({favImg.length})
+                </p>
               </Link>
             </div>
           </div>
         </nav>
         <div className="container">
-          {this.props.location.pathname === '/search' ||
-            (this.props.location.pathname === '/' && (
-              <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
-            ))}
-          {this.props.location.pathname === '/fav' && (
+          {(pathname === '/search' || pathname === '/') && (
+            <SearchPage favImg={favImg} onFavClicked={this.onFavClicked} />
+          )}
+          {pathname === '/fav' && (
             <FavPage favImg={favImg} onFavClicked={this.onFavClicked} />
           )}
         </div>

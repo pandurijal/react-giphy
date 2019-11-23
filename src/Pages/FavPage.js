@@ -32,8 +32,10 @@ class FavPage extends Component {
             );
           })
         ) : (
-          <div className="zero-data">
-            <p>Sorry, we couldn't find images with that keyword</p>
+          <div className="blank-data__wrapper">
+            <p className="blank-data">
+              Oops, you don't have any favourited images yet
+            </p>
           </div>
         )}
         <div className="btn-more__wrapper">
@@ -43,18 +45,6 @@ class FavPage extends Component {
             </button>
           )}
         </div>
-        {/* {isLoading && (
-          <>
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-            <div className="grid-item__skeleton" />
-          </>
-        )} */}
       </div>
     );
   }
