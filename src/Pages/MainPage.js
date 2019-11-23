@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../Components';
+import { Navbar, Footer } from '../Components';
 
 import SearchPage from './SearchPage';
 import FavPage from './FavPage';
@@ -52,9 +52,9 @@ class App extends Component {
             <FavPage favImg={favImg} onFavClicked={this.onFavClicked} />
           )}
         </div>
-        <footer className="app-footer">
+        <Footer>
           <p>GallerEasy | 2359 Media</p>
-        </footer>
+        </Footer>
       </div>
     );
   }
