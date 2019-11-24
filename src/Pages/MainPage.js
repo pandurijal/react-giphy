@@ -8,9 +8,7 @@ import FavPage from './FavPage';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      favImg: []
-    };
+    this.state = {};
   }
 
   onFavClicked = (id, srcImg) => {
@@ -21,9 +19,6 @@ class App extends Component {
     } else {
       favImg.push({ id, srcImg });
     }
-    this.setState({
-      favImg
-    });
     localStorage.setItem('favImg', JSON.stringify(favImg));
   };
 
