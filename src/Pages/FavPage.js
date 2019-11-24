@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class FavPage extends Component {
   constructor(props) {
@@ -6,7 +6,7 @@ class FavPage extends Component {
     this.state = {};
   }
   render() {
-    const favImg = JSON.parse(localStorage.getItem('favImg'));
+    const favImg = JSON.parse(localStorage.getItem("favImg")) || [];
     return (
       <div className="grid-row">
         {favImg.length > 0 ? (
@@ -23,7 +23,7 @@ class FavPage extends Component {
                     onClick={() => this.props.onFavClicked(val.id, srcImg)}
                   >
                     <div
-                      className={`fav-btn ${favorited ? 'favorited' : ''}`}
+                      className={`fav-btn ${favorited ? "favorited" : ""}`}
                     />
                   </div>
                 </div>

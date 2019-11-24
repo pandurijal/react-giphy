@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { routes } from './Routes';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { routes } from "./Routes";
 
-import './App.css';
+import "./App.css";
 
 class App extends Component {
   constructor(props) {

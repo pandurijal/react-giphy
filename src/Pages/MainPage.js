@@ -8,22 +8,27 @@ import FavPage from "./FavPage";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      favImg: []
+    };
   }
 
   onFavClicked = (id, srcImg) => {
-    let favImg = JSON.parse(localStorage.getItem("favImg"));
+    let favImg = JSON.parse(localStorage.getItem("favImg")) || [];
     const favIndex = favImg.findIndex(val => val.id === id);
     if (favIndex !== -1) {
       favImg = favImg.filter(val => val.id !== id);
     } else {
       favImg.push({ id, srcImg });
     }
+    this.setState({
+      favImg
+    });
     localStorage.setItem("favImg", JSON.stringify(favImg));
   };
 
   render() {
-    const favImg = JSON.parse(localStorage.getItem("favImg"));
+    const favImg = JSON.parse(localStorage.getItem("favImg")) || [];
     const { pathname } = this.props.location;
 
     return (
