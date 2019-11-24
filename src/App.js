@@ -12,7 +12,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router basename="/">
+      <Router basename="/gallereasy/">
         <Switch>
           {routes.map(route => (
             <Route
