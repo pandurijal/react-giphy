@@ -4,8 +4,8 @@ const Loading = () => {
   const numberOfRepeatingDivs = 8;
   return (
     <>
-      {[...Array(numberOfRepeatingDivs)].map(() => (
-        <div className='grid-item__skeleton' />
+      {[...Array(numberOfRepeatingDivs)].map((el, i) => (
+        <div className="grid-item__skeleton" key={i}/>
       ))}
     </>
   );
