@@ -1,16 +1,12 @@
 import React from 'react';
 
 const Loading = () => {
+  const numberOfRepeatingDivs = 8;
   return (
     <>
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
-      <div className="grid-item__skeleton" />
+      {[...Array(numberOfRepeatingDivs)].map((el, i) => (
+        <div className="grid-item__skeleton" key={i}/>
+      ))}
     </>
   );
 };
