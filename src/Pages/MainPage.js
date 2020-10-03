@@ -54,7 +54,16 @@ class App extends Component {
           )}
         </div>
         <Footer>
-          <p>React Giphy</p>
+          <p>
+            React Giphy | by{" "}
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://github.com/pandurijal"
+            >
+              Pandu Rijal Pasa
+            </a>
+          </p>
         </Footer>
       </div>
     );
