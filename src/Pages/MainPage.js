@@ -9,20 +9,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favImg: []
+      favImg: [],
     };
   }
 
   onFavClicked = (id, srcImg) => {
     let favImg = JSON.parse(localStorage.getItem("favImg")) || [];
-    const favIndex = favImg.findIndex(val => val.id === id);
+    const favIndex = favImg.findIndex((val) => val.id === id);
     if (favIndex !== -1) {
-      favImg = favImg.filter(val => val.id !== id);
+      favImg = favImg.filter((val) => val.id !== id);
     } else {
       favImg.push({ id, srcImg });
     }
     this.setState({
-      favImg
+      favImg,
     });
     localStorage.setItem("favImg", JSON.stringify(favImg));
   };
@@ -33,7 +33,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar title="GallerEasy">
+        <Navbar title="React Giphy">
           <Link to="/">
             <p className={`app-menu ${pathname === "/" ? "active" : ""}`}>
               Search
@@ -54,7 +54,7 @@ class App extends Component {
           )}
         </div>
         <Footer>
-          <p>GallerEasy | 2359 Media</p>
+          <p>React Giphy</p>
         </Footer>
       </div>
     );

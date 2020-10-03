@@ -12,9 +12,9 @@ class App extends Component {
 
   render() {
     return (
-      <Router basename="/gallereasy/">
+      <Router basename="/react-giphy/">
         <Switch>
-          {routes.map(route => (
+          {routes.map((route) => (
             <Route
               key={route.path}
               path={route.path}
